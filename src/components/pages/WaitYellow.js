@@ -1,28 +1,38 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, TouchableHighlight } from 'react-native'
 import { Fonts } from 'utils/Fonts';
 import FontSize from 'utils/FontSize';
 import HiddenStatusBar from 'components/atoms/hiddenstatusbar'
 
+let timer;
 export class WaitYellow extends Component {
   componentDidMount() {
     let delay = Math.floor(Math.random() * (3000 - 1000)) + 1000;
     const { onCompleted } = this.props;
-    setTimeout(() => {
+    timer = setTimeout(() => {
       onCompleted();
     }, delay);
   }
 
+  cheatDetected = () => {
+    clearInterval(timer);
+    this.props.onPress();
+  }
   render() {
     const { content } = this.props;
     return (
-      <View style={style.body}>
-        <HiddenStatusBar />
-        <View style={style.container}>
-          <Text style={style.title}>...</Text>
-          <Text style={style.description}>{content}</Text>
+      <TouchableHighlight onPress={() => { this.cheatDetected() }} style={style.body}>
+        <View style={style.body}>
+          <View style={style.container}>
+            <HiddenStatusBar />
+            <Text style={style.title}>...</Text>
+            <Text style={style.description}>{content.wait}</Text>
+          </View>
+          <Text style={style.tries}>
+            Tries | {content.turn + 1} of 5
+          </Text>
         </View>
-      </View>
+      </TouchableHighlight>
     )
   }
 }
@@ -37,7 +47,7 @@ const style = StyleSheet.create({
   },
   container: {
     marginLeft: 60,
-    marginRight: 60,
+    marginRight: 60
   },
   title: {
     fontFamily: Fonts.ProductBold,
@@ -51,6 +61,14 @@ const style = StyleSheet.create({
     fontSize: fontSize.description,
     color: "#F0F5FA",
     textAlign: 'center'
+  },
+  tries: {
+    textAlign: 'center',
+    color: "#F0F5FA",
+    position: 'absolute',
+    bottom: 40,
+    fontFamily: Fonts.Product,
+    fontSize: fontSize.tries
   }
 })
 

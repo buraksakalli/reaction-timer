@@ -3,6 +3,7 @@ import WaitYellow from 'components/pages/WaitYellow'
 import ClickPage from 'components/pages/ClickPage'
 import ResultPage from 'components/pages/ResultPage'
 import AveragePage from 'components/pages/AveragePage'
+import SoonPage from 'components/pages/SoonPage'
 import React, { Component } from 'react';
 import { NativeModules, View, ActivityIndicator, Dimensions } from 'react-native';
 import { Language } from 'utils/Language';
@@ -23,8 +24,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(Dimensions.get("window").width + "\n" + Dimensions.get("window").height);
-
     const locale = NativeModules.I18nManager.localeIdentifier;
     if (locale == 'tr_TR')
       this.setState({ content: Language.tr, ready: true })
@@ -42,7 +41,7 @@ class App extends Component {
   }
 
   showWaitPage = () => {
-    if (this.state.turn == 2) {
+    if (this.state.turn == 5) {
       this.setState({
         start: "false",
         page: "AveragePage"
@@ -53,6 +52,12 @@ class App extends Component {
         page: "WaitYellow",
       })
     }
+  }
+
+  showSoonPage = () => {
+    this.setState({
+      page: "SoonPage"
+    })
   }
 
   showClickPage = () => {
@@ -75,10 +80,11 @@ class App extends Component {
       return (
         !this.state.start ?
           <StartPage onPress={this.showWaitPage} content={this.state.content.start} />
-          : this.state.page == "WaitYellow" ? <WaitYellow onCompleted={this.showClickPage} content={this.state.content.wait} />
+          : this.state.page == "WaitYellow" ? <WaitYellow onPress={this.showSoonPage} onCompleted={this.showClickPage} content={{turn: this.state.turn, wait: this.state.content.wait}} />
             : this.state.page == "ClickPage" ? <ClickPage onPress={this.showResultPage} content={this.state.content.click} />
               : this.state.page == "ResultPage" ? <ResultPage onPress={this.showWaitPage} result={this.state.reactionTime} content={this.state.content.result} />
-                : this.state.page == "AveragePage" ? <AveragePage onPress={this.initialStatus} result={this.state.totalReaction / this.state.turn} content={this.state.content.average} /> : null
+                : this.state.page == "AveragePage" ? <AveragePage onPress={this.initialStatus} result={this.state.totalReaction / this.state.turn} content={this.state.content.average} />
+                  : this.state.page == "SoonPage" ? <SoonPage onPress={this.showWaitPage} content={this.state.content.soon} /> : null
       )
     } else {
       return (

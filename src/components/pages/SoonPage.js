@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native'
 import { Fonts } from 'utils/Fonts';
-import HiddenStatusBar from 'components/atoms/hiddenstatusbar'
 import FontSize from 'utils/FontSize';
+import HiddenStatusBar from 'components/atoms/hiddenstatusbar'
 
-class StartPage extends Component {
+export class SoonPage extends Component {
+  componentDidMount() {
+
+  }
+
   render() {
     const { onPress, content } = this.props;
     return (
       <TouchableHighlight onPress={onPress} style={style.body}>
         <View style={style.container}>
           <HiddenStatusBar />
+          <Text style={style.title}>!</Text>
           <Text style={style.title}>{content.title}</Text>
-          <Text style={style.description}>{content.subtitle}</Text>
+          <Text style={style.description}>{content.description}</Text>
         </View>
-      </TouchableHighlight >
+      </TouchableHighlight>
     )
   }
 }
@@ -35,13 +40,15 @@ const style = StyleSheet.create({
     fontFamily: Fonts.ProductBold,
     fontSize: fontSize.title,
     color: "#F0F6FB",
+    textAlign: 'center'
   },
   description: {
     marginTop: 40,
     fontFamily: Fonts.Product,
-    fontSize: fontSize.subtitle,
-    color: "#F0F5FA"
+    fontSize: fontSize.description,
+    color: "#F0F5FA",
+    textAlign: 'center'
   }
 })
 
-export default StartPage
+export default SoonPage

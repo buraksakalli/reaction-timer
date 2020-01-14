@@ -11,7 +11,10 @@ export const Language = {
       "title": "Average",
       "description": "Restart"
     },
-    "restart": "Click to restart"
+    soon: {
+      "title": "Ooppss",
+      "description": "Please wait yellow screen"
+    }
   },
   tr: {
     start: {
@@ -24,6 +27,10 @@ export const Language = {
     average: {
       "title": "Ortalama",
       "description": "Yeniden başlat"
+    },
+    soon: {
+      "title": "Acele Etme",
+      "description": "Lütfen sarı ekranı bekleyin."
     }
   }
 }
