@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native'
 import { Fonts } from 'utils/Fonts';
 import HiddenStatusBar from 'components/atoms/hiddenstatusbar'
-import { withNavigation } from 'react-navigation';
+import FontSize from 'utils/FontSize';
 
 let timer;
 export class ClickPage extends Component {
@@ -12,13 +12,6 @@ export class ClickPage extends Component {
     this.state = {
       time: 0
     }
-  }
-
-  screenPressed = (result) => {
-    const { navigation } = this.props;
-    navigation.push('ResultPage', {
-      result: result
-    });
   }
 
   componentDidMount() {
@@ -32,17 +25,26 @@ export class ClickPage extends Component {
   }
 
   render() {
+    const { content, onPress } = this.props;
     return (
-      <TouchableHighlight onPress={() => { clearInterval(timer); this.screenPressed(this.state.time) }} style={style.body}>
+      <TouchableHighlight onPress={() => {
+        clearInterval(timer);
+        if (onPress) {
+          onPress(this.state.time);
+        }
+      }
+      } style={style.body}>
         <View style={style.container}>
           <HiddenStatusBar />
           <Text style={style.title}>...</Text>
-          <Text style={style.description}>Click</Text>
+          <Text style={style.description}>{content}</Text>
         </View>
       </TouchableHighlight>
     )
   }
 }
+
+const fontSize = FontSize.sizes();
 const style = StyleSheet.create({
   body: {
     flex: 1,
@@ -57,17 +59,17 @@ const style = StyleSheet.create({
   },
   title: {
     fontFamily: Fonts.ProductBold,
-    fontSize: 70,
+    fontSize: fontSize.title,
     color: "#F0F6FB",
     textAlign: 'center'
   },
   description: {
     marginTop: 40,
     fontFamily: Fonts.Product,
-    fontSize: 36,
+    fontSize: fontSize.description,
     color: "#F0F5FA",
     textAlign: 'center'
   }
 })
 
-export default withNavigation(ClickPage)
+export default ClickPage;

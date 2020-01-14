@@ -1,6 +1,6 @@
 # Reaction Timer
 
-![screely-1579005622743](https://user-images.githubusercontent.com/10114716/72345468-ecb5c400-36e4-11ea-9245-464b77b09f76.png)
+![screely-1579006923467](https://user-images.githubusercontent.com/10114716/72346530-3d2e2100-36e7-11ea-8f11-0355c24b5420.png)
 
 ## Installation
 

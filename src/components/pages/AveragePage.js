@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native'
 import { Fonts } from 'utils/Fonts';
+import FontSize from 'utils/FontSize';
+import HiddenStatusBar from 'components/atoms/hiddenstatusbar'
 
 export class AveragePage extends Component {
   render() {
+    const { result, onPress, content } = this.props;
     return (
-      <TouchableHighlight onPress={() => { }} style={style.body}>
+      <TouchableHighlight onPress={onPress} style={style.body}>
         <View style={style.container}>
-          <Text style={style.title}>Average</Text>
-          <Text style={style.result}>290ms</Text>
-          <Text style={style.description}>Click to restart</Text>
+          <HiddenStatusBar />
+          <Text style={style.title}>{content.title}</Text>
+          <Text style={style.title}>{result} ms</Text>
+          <Text style={style.description}>{content.description}</Text>
         </View>
       </TouchableHighlight>
     )
   }
 }
+const fontSize = FontSize.sizes();
 const style = StyleSheet.create({
   body: {
     flex: 1,
@@ -29,20 +34,14 @@ const style = StyleSheet.create({
   },
   title: {
     fontFamily: Fonts.ProductBold,
-    fontSize: 70,
+    fontSize: fontSize.title,
     color: "#F0F6FB",
-    textAlign: 'center'
-  },
-  result: {
-    fontFamily: Fonts.ProductBold,
-    fontSize: 70,
-    color: "#289BDD",
     textAlign: 'center'
   },
   description: {
     marginTop: 40,
     fontFamily: Fonts.Product,
-    fontSize: 34,
+    fontSize: fontSize.description,
     color: "#F0F5FA",
     textAlign: 'center'
   }

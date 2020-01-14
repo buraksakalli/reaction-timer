@@ -2,25 +2,23 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native'
 import { Fonts } from 'utils/Fonts';
 import HiddenStatusBar from 'components/atoms/hiddenstatusbar'
+import FontSize from 'utils/FontSize';
 
 class StartPage extends Component {
-  navigatePage = (target) => {
-    const { navigation } = this.props;
-    navigation.replace(target)
-  }
   render() {
+    const { onPress, content } = this.props;
     return (
-      <TouchableHighlight onPress={() => { this.navigatePage('WaitYellow') }} style={style.body}>
+      <TouchableHighlight onPress={onPress} style={style.body}>
         <View style={style.container}>
           <HiddenStatusBar />
-          <Text style={style.title}>Reaction Time Test</Text>
-          <Text style={style.description}>When the blue box turns yellow, click as quickly as you can. Click anywhere to start</Text>
+          <Text style={style.title}>{content.title}</Text>
+          <Text style={style.description}>{content.subtitle}</Text>
         </View>
       </TouchableHighlight >
     )
   }
 }
-
+const fontSize = FontSize.sizes();
 const style = StyleSheet.create({
   body: {
     flex: 1,
@@ -35,13 +33,13 @@ const style = StyleSheet.create({
   },
   title: {
     fontFamily: Fonts.ProductBold,
-    fontSize: 70,
+    fontSize: fontSize.title,
     color: "#F0F6FB"
   },
   description: {
     marginTop: 40,
     fontFamily: Fonts.Product,
-    fontSize: 20,
+    fontSize: fontSize.subtitle,
     color: "#F0F5FA"
   }
 })
