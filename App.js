@@ -29,7 +29,7 @@ class App extends Component {
     if (locale == 'tr_TR')
       this.setState({ content: Language.tr, ready: true })
     else
-      this.setState({ content: Language.tr, ready: true })
+      this.setState({ content: Language.en, ready: true })
   }
 
   initialStatus = () => {
